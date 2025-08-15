@@ -1,27 +1,51 @@
-# News Sentiment Impact on Stocks
+# Trade Signal Generator
+
 **Stage:** Problem Framing & Scoping (Stage 01)
+
+---
+
 ## Problem Statement
-The problem is to quantify the immediate impact of major news events on the stock prices of technology companies. In a highly automated trading environment, news and sentiment can drive rapid price movements. Understanding this relationship is critical for developing more robust trading strategies that account for these external shocks, rather than just historical price data.
+In algorithmic trading, generating reliable trade signals (e.g., predictions of stock price movements based on momentum or volume patterns) is essential for capturing profitable opportunities, but poor signals lead to inconsistent returns or losses. This project aims to develop a tool to generate a predictive trade signal for a single stock, using historical market data to forecast short-term price direction (up or down) with an associated confidence score. By creating actionable signals, the tool will enable algorithm developers to build more effective trading strategies in dynamic markets.
+
+---
+
 ## Stakeholder & User
-The primary stakeholder is a Quantitative Researcher or Portfolio. They are the decision-makers who would use the findings to refine trading models and risk management strategies. The end user of the output would be a Junior Trader who needs a clear, actionable signal or metric to inform their daily trading activities. The context is fast-paced, so the answer must be timely and easily interpretable.
+- **Stakeholder:** The trading firm’s strategy team, responsible for developing high-performing algorithmic trading systems.
+- **User:** Algorithm developers at the trading firm, who use the tool during strategy prototyping to generate and test new signals. The tool integrates into their Python-based workflow, providing signals within their existing development environment.
+
+---
 
 ## Useful Answer & Decision
-The most useful answer would be causal and predictive. We want to determine if a specific type of news (e.g., a positive earnings report vs. a negative product recall) causes a measurable price movement and, if so, to what degree. The deliverable would be a metric (e.g., a "sentiment-volatility index") or an artifact like a visualization or a summary table that shows the average price change within a 15-minute window following a specific type of news event. This information would allow the quant researcher to make a decision about whether to integrate news sentiment into a new trading strategy or as an alert for risk management.
+- **Type:** Predictive
+- **Metric:** Signal confidence score (probability of correct price direction prediction, e.g., 0-1 scale).
+- **Artifact:** A generated signal output (e.g., "Buy AAPL with 0.75 confidence") and a report on signal generation logic, enabling developers to incorporate signals into trading algorithms.
 
+---
 
 ## Assumptions & Constraints
-* **Data Availability:** Assume access to a historical dataset of news headlines and corresponding stock prices for a defined period.
-* **Capacity:** This analysis will be scoped to a small basket of tech and healthcare stocks to be feasible.
+- **Data Availability:** Public tick-level market data (e.g., Alpaca or Yahoo Finance APIs) is accessible for a single stock (e.g., AAPL).
+- **Capacity:** Signal generation is limited to one stock and simple patterns (e.g., momentum) to ensure feasibility for a student project.
+- **Latency:** Analysis is offline at this stage, using historical tick data to prototype signal generation.
+- **Compliance:** All data is publicly available, avoiding proprietary or restricted datasets.
+
+---
 
 ## Known Unknowns / Risks
-* **Sentiment Accuracy:** The accuracy of public sentiment analysis tools can be variable. I'll need to define clear sentiment categories (positive, negative, neutral) and document their limitations.
-* **Causality vs. Correlation:** It may be difficult to definitively prove a causal link. I will need to be careful with the framing of my conclusions and identify other potential confounding variables. I will address this by focusing on event-driven analysis rather than simple correlation.
+- **Data Quality:** Public tick data may include noise or gaps, affecting signal accuracy. **Mitigation:** Clean data and validate with multiple sources.
+- **Market Predictability:** Signals may perform poorly in unpredictable markets (e.g., high volatility). **Mitigation:** Test signals across different market conditions.
+- **Overfitting:** Simple models might fit historical data too closely without generalizing. **Mitigation:** Use cross-validation techniques in prototyping.
+
+---
 
 ## Lifecycle Mapping
-- Map problem to business need → Problem Framing & Scoping (Stage 01) → Scoping paragraph & README
-- Analyze news and stock data → Data Collection & Cleaning (Stage 02) → Cleaned CSVs in `/data/` and basic EDA notebook
-- Model sentiment impact → Modeling & Analysis (Stage 03) → Predictive model notebook
-- Present findings to stakeholder → Communication & Presentation (Stage 04) → Stakeholder memo and final slide deck
+| Goal | Stage | Deliverable |
+|---|---|---|
+| Map problem to business need | Problem Framing & Scoping (Stage 01) | Scoping paragraph, README, stakeholder memo |
+| Collect and process tick data | Data Collection & Cleaning (Stage 02) | Cleaned tick data CSVs in `/data/`, exploratory data analysis notebook |
+| Develop signal generation model | Analysis (Stage 03) | Python script for signal generation |
+| Communicate and refine | Communication (Stage 04) | Final report and signal visualization mockup |
+
+---
 
 ## Repo Plan
-The repo will contain: `/data/` for raw data, `/src/` for Python scripts, `/notebooks/` for Jupyter notebooks, and `/docs/` for project documentation. I plan to commit updates daily as I progress through the assignment.
+- **/data/:** Stores tick-level market data CSVs (e.g., price movements for AAP
