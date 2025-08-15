@@ -24,7 +24,7 @@ In algorithmic trading, generating reliable trade signals (e.g., predictions of 
 
 ## Assumptions & Constraints
 - **Data Availability:** Public tick-level market data (e.g., Alpaca or Yahoo Finance APIs) is accessible for a single stock (e.g., AAPL).
-- **Capacity:** Signal generation is limited to one stock and simple patterns (e.g., momentum) to ensure feasibility for a student project.
+- **Capacity:** Signal generation is limited to one stock and simple patterns (e.g., momentum) to ensure feasibility.
 - **Latency:** Analysis is offline at this stage, using historical tick data to prototype signal generation.
 - **Compliance:** All data is publicly available, avoiding proprietary or restricted datasets.
 
