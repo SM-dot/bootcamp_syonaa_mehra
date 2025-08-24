@@ -1,0 +1,8 @@
+age,income,score,zipcode,city,extra_data,city_clean,age_scaled,income_scaled
+34.0,55000.0,0.82,90210,Beverly,,Beverly,0.23809523809523808,0.8125
+45.0,52000.0,0.91,10001,New York,42.0,New York,0.7619047619047619,0.625
+29.0,42000.0,,60614,Chicago,,Chicago,0.0,0.0
+50.0,58000.0,0.76,94103,SF,,San Francisco,1.0,1.0
+38.0,52000.0,0.88,73301,Austin,,Austin,0.42857142857142855,0.625
+39.5,52000.0,0.65,12345,Unknown,5.0,Unknown,0.5,0.625
+41.0,49000.0,0.79,94105,San Francisco,,San Francisco,0.5714285714285714,0.4375
