@@ -47,5 +47,50 @@ In algorithmic trading, generating reliable trade signals (e.g., predictions of 
 
 ---
 
+## Data Storage 
+This project acquires historical and real-time data for the top 10 performing stocks. We use the yfinance library to programmatically pull data from Yahoo Finance.
+
+Data Description
+
+Historical Data: We've collected the past five years of daily OHLCV (Open, High, Low, Close, Volume) data for each stock. This raw data is stored in two formats to support different analysis needs:
+
+ - Single Combined File: All historical data for the 10 stocks is saved in a single, long-format CSV file (top10_historical_...csv). This format is ideal for group analysis, cross-stock comparisons, and training machine learning models.
+
+ - Separate Files: Individual CSV files are created for each stock (e.g., aapl_historical_...csv). This format is useful for in-depth, single-stock analysis.
+
+Reproducibility: 
+To ensure data reproducibility, all saved files are automatically named with a timestamp (YYYY-MM-DD_HH-MM-SS). This creates a versioned snapshot of the raw data at the time of acquisition.
+
+# Outlier Analysis Assumptions and Risks
+
+### 1. Definition of Outliers
+
+Outliers are data points that significantly deviate from the majority of the data. They can be genuine, rare occurrences or errors from measurement, data entry, or other processes. In this project, two primary definitions are used for detection:
+
+* **IQR-based:** A value is an outlier if it falls below `Q1 - 1.5 * IQR` or above `Q3 + 1.5 * IQR`. This method is robust because it's based on quartiles, making it less sensitive to extreme values than the mean and standard deviation.
+* **Z-score-based:** A value is an outlier if its absolute Z-score is greater than a specified threshold (e.g., 3.0), meaning it is more than three standard deviations from the mean. This method is effective for data that is approximately normally distributed.
+
+### 2. Handling Methods and Assumptions
+
+We considered two main approaches for handling outliers:
+
+1.  **Filtering (Removing):** Outliers are completely removed from the dataset.
+    * **Assumption:** The outliers are considered noise, measurement errors, or anomalies that do not represent the underlying process we are modeling. By removing them, we create a cleaner, more representative dataset for our analysis.
+
+2.  **Winsorizing (Capping):** Outliers are capped at a specific percentile (e.g., the 5th and 95th percentiles).
+    * **Assumption:** The extreme values are not errors but are too influential and should be "tamed" rather than discarded entirely. This method preserves all data points, which can be important for time series or small datasets.
+
+### 3. Observed Impact and Risks
+
+Our sensitivity analysis showed that handling outliers has a significant impact on our model. For the linear regression model:
+
+* **Impact:** Removing or winsorizing outliers drastically improves model performance metrics like Mean Absolute Error (MAE) and R². The regression line shifts to better fit the core data, as it is no longer being pulled by extreme points. This indicates that for a simple linear model, outliers are highly influential.
+* **Risks:** The greatest risk of this approach is **discarding genuine, meaningful events**. For example, in a financial dataset, a large daily return might be a "black swan" event that contains critical information about market risk. Removing it would cause our model to underestimate future risk, which could be a catastrophic business decision.
+
+Therefore, the choice to remove or winsorize outliers is not just a technical decision but a critical business decision that should be informed by domain knowledge.
+
+
+
+
 ## Repo Plan
 - **/data/:** Stores tick-level market data CSVs (e.g., price movements for AAP
